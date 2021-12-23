@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Northwind.Interface
 {
-    public interface ICustomerDemographicsService : IGenericService<CustomerDemographic,CustomerDemographicDto>
+    public interface ICustomerDemographicService : IGenericService<CustomerDemographic,CustomerDemographicDto>
     {
     }
 }

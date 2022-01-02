@@ -11,21 +11,21 @@ namespace Northwind.Interface
     public interface IGenericService<Entity,Dto> where Entity : IEntityBase where Dto : IDtoBase
     {
 
-        List<Dto> GetAll();
+        IResponse<List<Dto>> GetAll();
 
         Task<List<Dto>> GetAllAsync();
 
-        List<Dto> GetAll(Expression<Func<Entity,bool>> predicate);
+        IResponse<List<Dto>> GetAll(Expression<Func<Entity,bool>> predicate);
 
         Task<List<Dto>> GetAllAsync(Expression<Func<Entity, bool>> predicate);
 
-        Dto Find(int itemID);
+        IResponse<Dto> Find(int itemID);
 
         Task<Dto> FindAsync(int itemID);
 
         IQueryable<Dto> GetIQueryable();
 
-        Dto Add(Dto item);
+        IResponse<Dto> Add(Dto item,bool saveChanges = true);
 
         Task<Dto> AddAsync(Dto item);
 
@@ -40,6 +40,8 @@ namespace Northwind.Interface
         void Delete(Dto item);
 
         Task DeleteAsync(Dto item);
+
+        void Save();
 
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Northwind.Entity.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace Northwind.DAL.Abstract
 {
     public interface IUnitOfWork : IDisposable
     {
-        // TODO: Repository'ler eklenecek...
+        IGenericRepository<Entity> GetRepository<Entity>() where Entity : EntityBase;
 
         bool BeginTransaction();
 

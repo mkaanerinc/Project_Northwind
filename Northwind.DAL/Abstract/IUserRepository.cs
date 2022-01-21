@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace Northwind.DAL.Abstract
 {
-    public interface ICustomerRepository : IGenericRepository<Customer>
+    public interface IUserRepository
     {
-        IQueryable CustomerReport(int customerID);
-
-        Customer FindCustomer(string customerId);
+        User Login(User login);
+        User Register(User register);
     }
 }

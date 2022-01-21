@@ -13,15 +13,10 @@ namespace Northwind.Interface
 
         IResponse<List<Dto>> GetAll();
 
-        Task<List<Dto>> GetAllAsync();
 
         IResponse<List<Dto>> GetAll(Expression<Func<Entity,bool>> predicate);
 
-        Task<List<Dto>> GetAllAsync(Expression<Func<Entity, bool>> predicate);
-
-        IResponse<Dto> Find(int itemID);
-
-        Task<Dto> FindAsync(int itemID);
+        IResponse<Dto> Find(int itemId);
 
         IQueryable<Dto> GetIQueryable();
 
@@ -29,17 +24,17 @@ namespace Northwind.Interface
 
         Task<Dto> AddAsync(Dto item);
 
-        Dto Update(Dto item);
+        IResponse<Dto> Update(Dto item);
 
         Task<Dto> UpdateAsync(Dto item);
 
-        void DeleteById(int itemID);
+        IResponse<bool> DeleteById(int itemId, bool saveChanges = true);
 
-        Task DeleteByIdAsync(int itemID);
+        Task<bool> DeleteByIdAsync(int itemId, bool saveChanges = true);
 
-        void Delete(Dto item);
+        IResponse<bool> Delete(Dto item);
 
-        Task DeleteAsync(Dto item);
+        Task<bool> DeleteAsync(Dto item);
 
         void Save();
 

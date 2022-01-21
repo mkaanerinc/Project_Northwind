@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 using Northwind.Entity.Models;
 
 #nullable disable
@@ -9,9 +10,13 @@ namespace Northwind.DAL.Concrete.EntityFramework.Context
 {
     public partial class NORTHWNDContext : DbContext
     {
-        public NORTHWNDContext()
-        {
-        }
+        // Db bağlantı için yöntem 1
+        //IConfiguration _configuration;
+
+        //public NORTHWNDContext(IConfiguration configuration)
+        //{
+        //    _configuration = configuration;
+        //}
 
         public NORTHWNDContext(DbContextOptions<NORTHWNDContext> options)
             : base(options)
@@ -47,13 +52,24 @@ namespace Northwind.DAL.Concrete.EntityFramework.Context
         public virtual DbSet<SummaryOfSalesByYear> SummaryOfSalesByYears { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<Territory> Territories { get; set; }
+        public virtual DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer("Server=LAPTOP-TAKPAA66;Database=NORTHWND;Trusted_Connection=True;");
-            }
+            // lazy loading
+            optionsBuilder.UseLazyLoadingProxies(false);
+
+            //if (!optionsBuilder.IsConfigured)
+            //{
+
+
+
+            //    //optionsBuilder.UseSqlServer("Server=LAPTOP-TAKPAA66;Database=NORTHWND;Trusted_Connection=True;");
+            //    //optionsBuilder.UseSqlServer(_configuration.GetConnectionString("SqlServer"));          
+            //}
+
+
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -98,6 +114,11 @@ namespace Northwind.DAL.Concrete.EntityFramework.Context
                 entity.Property(e => e.Description).HasColumnType("ntext");
 
                 entity.Property(e => e.Picture).HasColumnType("image");
+            });
+
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.Property(e => e.UserID).HasColumnName("UserID");
             });
 
             modelBuilder.Entity<CategorySalesFor1997>(entity =>
